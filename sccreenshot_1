@@ -1,0 +1,24 @@
+from pynput import keyboard
+import pyautogui
+combination=[
+    {keyboard.KeyCode(char="n")},
+    {keyboard.KeyCode(char="N")}
+]
+current=set()
+
+def execute():
+    pyautogui.hotkey("winleft","prtsc")
+
+def on_press(key):
+    if any([key in COMBO for COMBO in combination]):
+        current.add(key)
+        if any(all(k in current for k in COMBO) for COMBO in combination):
+            execute()
+
+def on_release(key):
+    if any([key in COMBO for COMBO in combination]):
+        current.remove(key)
+
+with keyboard.Listener(on_press=on_press , on_release=on_release) as listner:
+    listner.join()
+
