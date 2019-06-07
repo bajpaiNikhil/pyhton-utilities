@@ -1,0 +1,17 @@
+import speech_recognition as sr
+import pyautogui
+import pyaudio
+r=sr.Recognizer()
+#index = pyaudio.PyAudio().get_device_count() - 1
+#print (index)
+
+with sr.Microphone() as source:
+    print("SPEAK!!")
+    audio=r.listen(source)
+    try:
+        text=r.recognize_google(audio)
+        #pyautogui.write(text)
+        print('you said:{}'.format(text))
+    except:
+        print("UNABLE TO UNDERSTAND!")
+
